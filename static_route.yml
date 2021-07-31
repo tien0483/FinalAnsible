@@ -1,0 +1,20 @@
+---
+
+- name: Set static route for routers
+  hosts: [Routers]
+  gather_facts: false
+
+  tasks:
+    - name: Set Static Route
+      ios_static_route:
+        prefix: "{{ item.prefix }}"
+        mask: "{{ item.mask }}"
+        next_hop: "{{ item.nexthop }}"
+      with_items: "{{ static }}"
+
+    - name: Show Ip route
+      ios_command:
+        commands:
+          - show ip route static
+        register: output
+    - debug: var=output.stdout_lines 

@@ -1,0 +1,26 @@
+---
+
+- name: Set IP interface R1
+  hosts: [Routers]
+  gather_facts: no
+
+  tasks:
+    - name: Set IP cho thiet bi
+      ios_l3_interface:
+        name: "{{ item.port }}"
+        ipv4: "{{ item.ip }}" 
+      with_items: "{{ config }}"
+    - name: no shut
+      ios_interface:
+        name: "{{ item.port }}"
+        state: up
+        enabled: True
+      with_items: "{{ config }}"
+    - name: Show ip
+      ios_command:
+        commands:
+          - show ip int brief
+      register: output
+
+    - debug: var=output.stdout_lines
+ 

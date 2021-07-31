@@ -1,0 +1,12 @@
+---
+
+- name: ping 2 PCs
+  hosts: [Routers]
+  gather_facts: false
+
+  tasks:
+    - name: ping 2 PC
+      ios_ping:
+        dest: "{{ item.ip_dest }}"
+        source: "{{ item.ip_source }}"
+      with_items: "{{ ping_pcs }}"

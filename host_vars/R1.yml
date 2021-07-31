@@ -1,0 +1,16 @@
+---
+
+static:
+  - prefix: 192.168.2.0
+    nexthop: 192.168.12.2
+    mask: 255.255.255.0
+
+ping_pcs:
+  - ip_dest: 192.168.2.10
+    ip_source: 192.168.1.1
+
+config:
+  - port: Ethernet0/2
+    ip: 192.168.12.1/24
+  - port: Ethernet0/1
+    ip: 192.168.1.1/24

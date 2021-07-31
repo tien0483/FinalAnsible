@@ -1,0 +1,16 @@
+---
+
+- name: Cau hinh tren router
+  hosts: [Routers]
+  gather_facts: no
+
+  tasks:
+    - name: Show ip
+      ios_command:
+        commands:
+          - show ip int brief
+      register: output
+
+    - debug: var=output.stdout_lines
+
+
